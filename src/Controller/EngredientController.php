@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Engredient;
+use App\Form\EngredientType;
 use App\Repository\EngredientRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Knp\Component\Pager\PaginatorInterface;
@@ -36,8 +37,57 @@ class EngredientController extends AbstractController
         }
         $manager->remove($engredient);
         $manager->flush();
+            $this->addFlash(
+                'deleted',
+                'Delete successfully'
+            );
         return $this->redirectToRoute('engredient.home');
         return $this->render('engredient/index.html.twig',[]);
+
+    }
+    #[Route('/engredient/create','engredient.create',methods:['GET','POST'])]
+    public function create(Request $request,EntityManagerInterface $manager):Response{
+        $engredient=new Engredient();
+        $form=$this->createForm(EngredientType::class,$engredient);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()){
+            $task=$form->getData();
+            $manager->persist($task);
+            $manager->flush();
+            $this->addFlash(
+                'create',
+                'Successfully created'
+             );
+            return $this->redirectToRoute('engredient.home');
+          
+
+
+        }
+        return $this->render('engredient/create.html.twig',[
+            'form'=>$form->createView()
+        ]);
+    }
+    #[Route('/engredient/edit/{id}','engredient.edit',methods:['GET','POST'])]
+    public function edit(Engredient $engredient,EntityManagerInterface $manager ,Request $request):Response{
+        $engredient=new Engredient();
+        $form=$this->createForm(EngredientType::class,$engredient);
+        $form->handleRequest($request);
+        if($form->isSubmitted() && $form->isValid()){
+            $task=$form->getData();
+            $manager->persist($task);
+            $manager->flush();
+            $this->addFlash(
+                'modify',
+                'Successfully Modified'
+             );
+            return $this->redirectToRoute('engredient.home');
+         
+
+
+        }
+        return $this->render('engredient/create.html.twig',[
+            'form'=>$form->createView()
+        ]);
 
     }
 }
