@@ -63,13 +63,12 @@ class EngredientController extends AbstractController
 
 
         }
-        return $this->render('engredient/create.html.twig',[
+        return $this->render('engredient/edit.html.twig',[
             'form'=>$form->createView()
         ]);
     }
     #[Route('/engredient/edit/{id}','engredient.edit',methods:['GET','POST'])]
     public function edit(Engredient $engredient,EntityManagerInterface $manager ,Request $request):Response{
-        $engredient=new Engredient();
         $form=$this->createForm(EngredientType::class,$engredient);
         $form->handleRequest($request);
         if($form->isSubmitted() && $form->isValid()){
@@ -85,7 +84,7 @@ class EngredientController extends AbstractController
 
 
         }
-        return $this->render('engredient/create.html.twig',[
+        return $this->render('engredient/edit.html.twig',[
             'form'=>$form->createView()
         ]);
 
