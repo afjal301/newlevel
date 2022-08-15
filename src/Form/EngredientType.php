@@ -17,11 +17,23 @@ class EngredientType extends AbstractType
         $builder
             ->add('name',TextType::class,[
                 'attr'=>[
-                    'placeholder'=>'Name'
+                    'placeholder'=>'Name',
+                    'class'=>'form-control'  
                 ]
             ])
-            ->add('price',NumberType::class)
-            ->add('submit',SubmitType::class)
+            ->add('price',NumberType::class,[
+                "attr"=>[
+                    'placeholder'=>'Price',
+                    'class'=>'form-control'                ]
+            ])
+            ->add('submit',SubmitType::class ,[
+                "attr"=>[
+                    
+                    'class'=>'btn  btn-outline-info form-control mt-4',
+                    'value'=>'Envoyer',
+                    
+                ]
+            ])
             
         ;
     }

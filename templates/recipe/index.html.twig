@@ -1,0 +1,66 @@
+{% extends "base.html.twig" %}
+
+
+{% block title %}Hello EngredientController!{% endblock %}
+
+{% block body %}
+
+<div class="container mt-4">
+<table class="table table-hover">
+  <thead>
+    <tr class="table-dark">
+      <th scope="row">Engredient</th>
+      <td>Price</td>
+      <td>id</td>
+      <td>Nombre de People</td>
+      <td>dificulty</td>
+      <td>description</td>
+      <td>is favorite</td>
+      <td>Modify</td>
+      <td>Delete</td>
+    </tr>
+  </thead>
+  <tbody>
+     {% for engredient in all %}
+     <tr>
+      <td>{{engredient.name}}</td>
+      <td>{{engredient.price}}</td>
+       <td>{{engredient.id}}</td>
+      <td>{{engredient.nbpeople}}</td>
+      <td>{{engredient.difficulty}}</td>
+      <td>{{engredient.description}}/td>
+      <td>{{engredient.isfavorite}}</td>
+      <td><a href="{{ path('recipe.edit',{id:engredient.id}) }}" class="alert-danger"><button class="btn btn-outline-info btn-sm">Modify</button></a></td>
+      <td><a href="{{ path('recipe.delete',{id:engredient.id}) }}" class="alert-danger"><button class="btn btn-danger btn-sm">Delete</button></a></td>
+      
+     </tr>
+     {% endfor %}
+  </tbody>
+</table>
+<div class="container sm-4">
+{{knp_pagination_render(all)}}
+
+</div>
+{% for a in app.flashes('modify')%}
+<div class="alert alert-success">
+{{ a}}
+</div>
+{% endfor %}
+{% for a in app.flashes('deleted')%}
+<div class="alert alert-danger">
+{{ a}}
+</div>
+{% endfor %}
+
+{% for a in app.flashes('create')%}
+<div class="alert alert-success">
+{{ a}}
+</div>
+{% endfor %}
+
+</div>
+
+
+
+
+{% endblock %}

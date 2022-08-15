@@ -1,0 +1,21 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Connexion {% endblock %}
+
+{% block body %}
+{% if error %}
+<div class="alert alert-danger">
+{{error.messageKey|trans(error.messageData,'security')}}
+</div>
+{% endif %}
+
+<form method='POST' action ={{ path('security.login') }}>
+<label for="username"> Entrer votre adresse email</label>
+<input type="email" class="form-control " name="_username" placeholder="symrecipe@gmail.com" id="username" value="{{lastuser}}">
+<label for="password"> Entrer votre mot de passe</label>
+<input type="text" class="form-control" name="_password" placeholder="password" id="password">
+<input type="submit" value="Connecter" class="form-control btn btn-outline-info">
+
+</form>
+
+{% endblock %}
